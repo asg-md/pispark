@@ -65,7 +65,8 @@ def cargar_stopwordsspanish():
 def contar_words(texto_limpio_partido):
     stopwords_limpio_partido = cargar_stopwordsspanish()
     cuenta_df = pd.DataFrame({'Palabras': list(filter(lambda elem: elem not in stopwords_limpio_partido, texto_limpio_partido)), 'Repeticiones':  1})
-    return cuenta_df.groupby(by='Palabras').agg({'Repeticiones': 'count'}).reset_index().sort_values(by=['Repeticiones'], ascending=False)
+    tabla_final = cuenta_df.groupby(by='Palabras').agg({'Repeticiones': 'count'}).reset_index().sort_values(by=['Repeticiones'], ascending=False)
+    return tabla_final.reset_index()[['Palabras','Repeticiones']].values.tolist()
 
 filename = "el_quijote.txt"
 # filename = "texto_prueba.txt"
